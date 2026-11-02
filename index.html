@@ -92,6 +92,16 @@ h2{font-family:var(--display);font-weight:700;font-size:15px;text-transform:uppe
 .hit .ans{background:var(--ok-bg);border-radius:6px;padding:8px 10px}
 .hit .ans b{color:var(--ok)}
 mark{background:#ffe27a;color:#13263a;border-radius:2px;padding:0 1px}
+.fig{width:100%;height:auto;display:block;color:var(--fg)}
+.fig.day{width:70px;flex:none;background:#e9eef2;border-radius:8px}
+.figrow{display:flex;gap:8px;align-items:flex-start}
+.figrow>.fig:first-child{flex:1;min-width:0}
+.figwrap{overflow-x:auto}
+.fnotes{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.ovl{position:fixed;inset:0;background:#000a;z-index:20;overflow-y:auto;padding:max(16px,env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) 24px max(12px,env(safe-area-inset-left,0px))}
+.ovlin{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.fbtns{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.fbtn{font:inherit;font-size:14px;font-weight:600;padding:8px 12px;border-radius:8px;border:1.5px solid var(--accent);background:var(--card);color:var(--accent);cursor:pointer}
 .src{font-size:13px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){.bar i{transition:none}}
 </style>
@@ -114,9 +124,9 @@ const TN={
  pt:{"Nomenclatura náutica":"Nomenclatura","Amarre y fondeo":"Amarração e fundeio","Seguridad en la mar":"Segurança no mar","Legislación":"Legislação","Balizamiento":"Balizagem","RIPA":"RIPA (abalroamentos)","Maniobra":"Manobra","Emergencias":"Emergências","Meteorología":"Meteorologia","Teoría de navegación":"Teoria de navegação","Carta de navegación":"Carta de navegação"}};
 const KEYN={"RIPA":[5,10],"Balizamiento":[2,5],"Carta de navegación":[2,4]};
 const UI={
- es:{cons:"Consulta",consd:"Busca por palabra clave o tema y ve la respuesta y la explicación.",ph:"Buscar: luz, cardinal, extintor, 12 millas…",tall:"Todos",res:"resultados",more:"Mostrar más",none:"Sin resultados. Prueba otra palabra.",ans:"Respuesta:",n:"preguntas",exam:"Examen simulado",examd:n=>`${n} preguntas al azar, con el mismo número por tema que el examen real. Al final te dice si aprobarías.`,all:"Todas, al azar",alld:n=>`Las ${n} preguntas mezcladas.`,wrong:"Repetir las falladas",wrongd:w=>w?`${w} preguntas por acertar.`:"Aún no hay preguntas falladas.",bytema:"Por tema",ok:(a,b)=>`${a}/${b} acertadas`,key:(m,n)=>`Eliminatorio en el examen: máx. ${m} fallos de ${n}`,seen:(s,n)=>`Has respondido ${s} de ${n}. El progreso se guarda en este móvil.`,reset:"Borrar el progreso",confirm:"Toca otra vez para confirmar",quit:"Salir al menú",right:"Correcto",bad:"Incorrecto",correct:"Respuesta correcta:",next:"Siguiente pregunta",see:"Ver resultado",result:"Resultado",pass:"Aprobarías",fail:"Suspenderías",ftot:(w,l)=>`${w} fallos en total (máx. ${l})`,ft:(w,t,m)=>`${w} fallos en ${t} (máx. ${m})`,pct:p=>`${p}% de aciertos. En el examen real se pueden fallar como máximo 13 de 45.`,rep:w=>`Repetir las falladas (${w})`,menu:"Volver al menú"},
- gl:{cons:"Consulta",consd:"Busca por palabra clave ou tema e ve a resposta e a explicación.",ph:"Buscar: luz, cardinal, extintor, 12 millas…",tall:"Todos",res:"resultados",more:"Amosar máis",none:"Sen resultados. Proba outra palabra.",ans:"Resposta:",n:"preguntas",exam:"Exame simulado",examd:n=>`${n} preguntas ao chou, co mesmo número por tema que o exame real. Ao final dille se aprobarías.`,all:"Todas, ao chou",alld:n=>`As ${n} preguntas mesturadas.`,wrong:"Repetir as falladas",wrongd:w=>w?`${w} preguntas por acertar.`:"Aínda non hai preguntas falladas.",bytema:"Por tema",ok:(a,b)=>`${a}/${b} acertadas`,key:(m,n)=>`Eliminatorio no exame: máx. ${m} fallos de ${n}`,seen:(s,n)=>`Respondiches ${s} de ${n}. O progreso gárdase neste móbil.`,reset:"Borrar o progreso",confirm:"Toca outra vez para confirmar",quit:"Saír ao menú",right:"Correcto",bad:"Incorrecto",correct:"Resposta correcta:",next:"Seguinte pregunta",see:"Ver resultado",result:"Resultado",pass:"Aprobarías",fail:"Suspenderías",ftot:(w,l)=>`${w} fallos en total (máx. ${l})`,ft:(w,t,m)=>`${w} fallos en ${t} (máx. ${m})`,pct:p=>`${p}% de acertos. No exame real pódense fallar como máximo 13 de 45.`,rep:w=>`Repetir as falladas (${w})`,menu:"Volver ao menú"},
- pt:{cons:"Consulta",consd:"Pesquise por palavra-chave ou tema e veja a resposta e a explicação.",ph:"Pesquisar: luz, cardinal, extintor, 12 milhas…",tall:"Todos",res:"resultados",more:"Mostrar mais",none:"Sem resultados. Experimente outra palavra.",ans:"Resposta:",n:"perguntas",exam:"Exame simulado",examd:n=>`${n} perguntas ao acaso, com o mesmo número por tema que o exame real. No fim diz se passava.`,all:"Todas, ao acaso",alld:n=>`As ${n} perguntas misturadas.`,wrong:"Repetir as que errei",wrongd:w=>w?`${w} perguntas por acertar.`:"Ainda não há perguntas erradas.",bytema:"Por tema",ok:(a,b)=>`${a}/${b} certas`,key:(m,n)=>`Eliminatório no exame: máx. ${m} erros em ${n}`,seen:(s,n)=>`Já respondeu a ${s} de ${n}. O progresso fica guardado neste telemóvel.`,reset:"Apagar o progresso",confirm:"Tocar outra vez para confirmar",quit:"Sair para o menu",right:"Certo",bad:"Errado",correct:"Resposta certa:",next:"Próxima pergunta",see:"Ver resultado",result:"Resultado",pass:"Passava",fail:"Chumbava",ftot:(w,l)=>`${w} erros no total (máx. ${l})`,ft:(w,t,m)=>`${w} erros em ${t} (máx. ${m})`,pct:p=>`${p}% certas. No exame real pode errar no máximo 13 em 45.`,rep:w=>`Repetir as que errei (${w})`,menu:"Voltar ao menu"}};
+ es:{ficha:"Ficha visual",fichas:"fichas",close:"Cerrar",fb:"Fichas visuales",fbd:"Balizas, luces y marcas, señales acústicas, partes del barco y rumbos, con dibujos.",seef:"Ver ficha:",cons:"Consulta",consd:"Busca por palabra clave o tema y ve la respuesta y la explicación.",ph:"Buscar: luz, cardinal, extintor, 12 millas…",tall:"Todos",res:"resultados",more:"Mostrar más",none:"Sin resultados. Prueba otra palabra.",ans:"Respuesta:",n:"preguntas",exam:"Examen simulado",examd:n=>`${n} preguntas al azar, con el mismo número por tema que el examen real. Al final te dice si aprobarías.`,all:"Todas, al azar",alld:n=>`Las ${n} preguntas mezcladas.`,wrong:"Repetir las falladas",wrongd:w=>w?`${w} preguntas por acertar.`:"Aún no hay preguntas falladas.",bytema:"Por tema",ok:(a,b)=>`${a}/${b} acertadas`,key:(m,n)=>`Eliminatorio en el examen: máx. ${m} fallos de ${n}`,seen:(s,n)=>`Has respondido ${s} de ${n}. El progreso se guarda en este móvil.`,reset:"Borrar el progreso",confirm:"Toca otra vez para confirmar",quit:"Salir al menú",right:"Correcto",bad:"Incorrecto",correct:"Respuesta correcta:",next:"Siguiente pregunta",see:"Ver resultado",result:"Resultado",pass:"Aprobarías",fail:"Suspenderías",ftot:(w,l)=>`${w} fallos en total (máx. ${l})`,ft:(w,t,m)=>`${w} fallos en ${t} (máx. ${m})`,pct:p=>`${p}% de aciertos. En el examen real se pueden fallar como máximo 13 de 45.`,rep:w=>`Repetir las falladas (${w})`,menu:"Volver al menú"},
+ gl:{ficha:"Ficha visual",fichas:"fichas",close:"Pechar",fb:"Fichas visuais",fbd:"Balizas, luces e marcas, sinais acústicos, partes do barco e rumbos, con debuxos.",seef:"Ver ficha:",cons:"Consulta",consd:"Busca por palabra clave ou tema e ve a resposta e a explicación.",ph:"Buscar: luz, cardinal, extintor, 12 millas…",tall:"Todos",res:"resultados",more:"Amosar máis",none:"Sen resultados. Proba outra palabra.",ans:"Resposta:",n:"preguntas",exam:"Exame simulado",examd:n=>`${n} preguntas ao chou, co mesmo número por tema que o exame real. Ao final dille se aprobarías.`,all:"Todas, ao chou",alld:n=>`As ${n} preguntas mesturadas.`,wrong:"Repetir as falladas",wrongd:w=>w?`${w} preguntas por acertar.`:"Aínda non hai preguntas falladas.",bytema:"Por tema",ok:(a,b)=>`${a}/${b} acertadas`,key:(m,n)=>`Eliminatorio no exame: máx. ${m} fallos de ${n}`,seen:(s,n)=>`Respondiches ${s} de ${n}. O progreso gárdase neste móbil.`,reset:"Borrar o progreso",confirm:"Toca outra vez para confirmar",quit:"Saír ao menú",right:"Correcto",bad:"Incorrecto",correct:"Resposta correcta:",next:"Seguinte pregunta",see:"Ver resultado",result:"Resultado",pass:"Aprobarías",fail:"Suspenderías",ftot:(w,l)=>`${w} fallos en total (máx. ${l})`,ft:(w,t,m)=>`${w} fallos en ${t} (máx. ${m})`,pct:p=>`${p}% de acertos. No exame real pódense fallar como máximo 13 de 45.`,rep:w=>`Repetir as falladas (${w})`,menu:"Volver ao menú"},
+ pt:{ficha:"Ficha visual",fichas:"fichas",close:"Fechar",fb:"Fichas visuais",fbd:"Balizagem, luzes e marcas, sinais sonoros, partes do barco e rumos, com desenhos.",seef:"Ver ficha:",cons:"Consulta",consd:"Pesquise por palavra-chave ou tema e veja a resposta e a explicação.",ph:"Pesquisar: luz, cardinal, extintor, 12 milhas…",tall:"Todos",res:"resultados",more:"Mostrar mais",none:"Sem resultados. Experimente outra palavra.",ans:"Resposta:",n:"perguntas",exam:"Exame simulado",examd:n=>`${n} perguntas ao acaso, com o mesmo número por tema que o exame real. No fim diz se passava.`,all:"Todas, ao acaso",alld:n=>`As ${n} perguntas misturadas.`,wrong:"Repetir as que errei",wrongd:w=>w?`${w} perguntas por acertar.`:"Ainda não há perguntas erradas.",bytema:"Por tema",ok:(a,b)=>`${a}/${b} certas`,key:(m,n)=>`Eliminatório no exame: máx. ${m} erros em ${n}`,seen:(s,n)=>`Já respondeu a ${s} de ${n}. O progresso fica guardado neste telemóvel.`,reset:"Apagar o progresso",confirm:"Tocar outra vez para confirmar",quit:"Sair para o menu",right:"Certo",bad:"Errado",correct:"Resposta certa:",next:"Próxima pergunta",see:"Ver resultado",result:"Resultado",pass:"Passava",fail:"Chumbava",ftot:(w,l)=>`${w} erros no total (máx. ${l})`,ft:(w,t,m)=>`${w} erros em ${t} (máx. ${m})`,pct:p=>`${p}% certas. No exame real pode errar no máximo 13 em 45.`,rep:w=>`Repetir as que errei (${w})`,menu:"Voltar ao menu"}};
 const L=["A","B","C","D"];
 const $=id=>document.getElementById(id);
 const main=$("main"),cnt=$("count"),prog=$("prog"),barwrap=$("barwrap");
@@ -133,7 +143,7 @@ let run=[],i=0,score=0,done=false,mode="",view="home";
 function setLang(l){lang=l;try{localStorage.setItem("per-lang",l)}catch(e){}
   document.documentElement.lang=l;
   document.querySelectorAll("#langs button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===l));
-  if(view==="home")home();else if(view==="cons")consulta();else if(view==="q"){const d=done;show();if(d)redo();}else result();}
+  if(view==="home")home();else if(view==="cons")consulta();else if(view==="fichas")fichasView();else if(view==="q"){const d=done;show();if(d)redo();}else result();}
 document.querySelectorAll("#langs button").forEach(b=>b.onclick=()=>setLang(b.dataset.l));
 function home(){
   view="home";barwrap.hidden=true;const u=T();cnt.textContent=Q.length+" "+u.n;
@@ -142,6 +152,7 @@ function home(){
    <div class="modes">
     <button class="mode" id="m-exam"><b>${u.exam}</b><span>${u.examd(examSet().length)}</span></button>
     <button class="mode" id="m-all"><b>${u.all}</b><span>${u.alld(Q.length)}</span></button>
+    <button class="mode" id="m-fich"><b>${u.fb}</b><span>${u.fbd}</span></button>
     <button class="mode" id="m-cons"><b>${u.cons}</b><span>${u.consd}</span></button>
     <button class="mode" id="m-wrong" ${w?"":"disabled"}><b>${u.wrong}</b><span>${u.wrongd(w)}</span></button>
    </div>
@@ -154,6 +165,7 @@ function home(){
   $("m-exam").onclick=()=>start(examSet(),"exam");
   $("m-all").onclick=()=>start(shuffle(Q),"all");
   $("m-cons").onclick=()=>consulta();
+  $("m-fich").onclick=()=>fichasView();
   if(w)$("m-wrong").onclick=()=>start(shuffle(wrongIds()),"wrong");
   main.querySelectorAll(".chip").forEach(b=>b.onclick=()=>start(shuffle(Q.filter(x=>x.t===TEMAS[+b.dataset.t])),"tema"));
   const r=$("reset");if(r)r.onclick=()=>{if(r.dataset.c){st={};save();home()}else{r.dataset.c=1;r.textContent=T().confirm}};
@@ -178,14 +190,250 @@ function renderCons(){
   const u=T(),terms=nrm(cq).split(/\s+/).filter(w=>w.length>1);
   const res=Q.filter(x=>{if(ct&&x.t!==ct)return false;if(!terms.length)return true;
     const [q,o,e]=tx(x);const hay=nrm(q+" "+o.join(" ")+" "+e+" "+x.es[0]+" "+x.es[1].join(" "));return terms.every(w=>hay.includes(w))});
-  $("ccount").textContent=res.length+" "+u.res;
+  const fm=FICHAS.filter(f=>(!ct||f.t===ct)&&(terms.length?terms.every(w=>nrm(f.k.join(" ")+" "+f.title[lang]+" "+f.notes[lang].join(" ")).includes(w)):!!ct));
+  $("ccount").textContent=res.length+" "+u.res+(fm.length?" · "+fm.length+" "+u.fichas:"");
   const list=$("clist");
-  if(!res.length){list.innerHTML=`<p class="note">${u.none}</p>`;return}
-  list.innerHTML=res.slice(0,climit).map(x=>{const [q,o,e]=tx(x);return `<div class="card hit"><div class="tema"><span>${esc(TN[lang][x.t])}</span><span>${esc(x.src||"")}</span></div>
+  if(!res.length&&!fm.length){list.innerHTML=`<p class="note">${u.none}</p>`;return}
+  list.innerHTML=fm.map(fichaHTML).join("")+res.slice(0,climit).map(x=>{const [q,o,e]=tx(x);return `<div class="card hit"><div class="tema"><span>${esc(TN[lang][x.t])}</span><span>${esc(x.src||"")}</span></div>
     <p class="q" style="font-size:17px">${hl(q,terms)}</p><div class="ans">${u.ans} <b>${hl(o[x.a],terms)}</b></div><p style="margin:0">${hl(e,terms)}</p></div>`}).join("")+
     (res.length>climit?`<button class="btn sec" id="cmore">${u.more} (${res.length-climit})</button>`:"");
   const m=$("cmore");if(m)m.onclick=()=>{climit+=40;renderCons()};
 }
+
+/* ===== FICHAS VISUAIS (IALA região A, RIPA) ===== */
+const C={r:"#d62828",g:"#1f9a3c",y:"#f2c300",k:"#151515",w:"#ffffff",b:"#1f5fbf",o:"#f5a623"};
+function svgWrap(w,h,inner,bg){return `<svg viewBox="0 0 ${w} ${h}" class="fig" role="img" xmlns="http://www.w3.org/2000/svg">${bg?`<rect width="${w}" height="${h}" rx="10" fill="${bg}"/>`:""}${inner}</svg>`}
+function txt(x,y,s,o={}){return `<text x="${x}" y="${y}" font-size="${o.fs||11}" text-anchor="${o.a||"middle"}" fill="${o.c||"currentColor"}" font-weight="${o.fw||400}" font-family="system-ui,sans-serif">${s}</text>`}
+/* marcas de tope */
+function cone(cx,cy,up,col){return up?`<polygon points="${cx},${cy-9} ${cx-8},${cy+5} ${cx+8},${cy+5}" fill="${col}"/>`:`<polygon points="${cx},${cy+9} ${cx-8},${cy-5} ${cx+8},${cy-5}" fill="${col}"/>`}
+function topmark(t,cx,ty){
+  const k=C.k;
+  switch(t){
+    case"N":return cone(cx,ty-10,1,k)+cone(cx,ty+6,1,k);
+    case"S":return cone(cx,ty-6,0,k)+cone(cx,ty+10,0,k);
+    case"E":return cone(cx,ty-8,1,k)+cone(cx,ty+8,0,k);
+    case"W":return cone(cx,ty-10,0,k)+cone(cx,ty+10,1,k);
+    case"can":return `<rect x="${cx-7}" y="${ty-7}" width="14" height="14" fill="${C.r}"/>`;
+    case"cone":return cone(cx,ty,1,C.g);
+    case"2sph":return `<circle cx="${cx}" cy="${ty-8}" r="6.5" fill="${k}"/><circle cx="${cx}" cy="${ty+7}" r="6.5" fill="${k}"/>`;
+    case"sph":return `<circle cx="${cx}" cy="${ty}" r="7.5" fill="${C.r}"/>`;
+    case"X":return `<path d="M${cx-8} ${ty-8}L${cx+8} ${ty+8}M${cx+8} ${ty-8}L${cx-8} ${ty+8}" stroke="${C.y}" stroke-width="4"/>`;
+    case"+":return `<path d="M${cx} ${ty-10}V${ty+10}M${cx-8} ${ty}H${cx+8}" stroke="${C.y}" stroke-width="4"/>`;
+  }return"";
+}
+/* boia de castelete com faixas horizontais ou verticais */
+function buoy(cx,base,bands,tm,o={}){
+  const top=base-78,h=58,w=30;let body="";
+  if(o.vert){const n=bands.length,sw=w/n;bands.forEach((c,i)=>body+=`<rect x="${cx-w/2+i*sw}" y="${top}" width="${sw+0.5}" height="${h}" fill="${c}"/>`)}
+  else{const n=bands.length,bh=h/n;bands.forEach((c,i)=>body+=`<rect x="${cx-w/2}" y="${top+i*bh}" width="${w}" height="${bh+0.5}" fill="${c}"/>`)}
+  if(o.shape==="cone")body=`<clipPath id="cp${cx}${base}"><polygon points="${cx},${top-6} ${cx-w/2-4},${top+h} ${cx+w/2+4},${top+h}"/></clipPath><g clip-path="url(#cp${cx}${base})"><rect x="${cx-w}" y="${top-8}" width="${2*w}" height="${h+8}" fill="${bands[0]}"/>${bands.length>1?`<rect x="${cx-w}" y="${top+h*0.45}" width="${2*w}" height="${h*0.22}" fill="${bands[1]}"/><rect x="${cx-w}" y="${top+h*0.67}" width="${2*w}" height="${h*0.4}" fill="${bands[0]}"/>`:""}</g>`;
+  const outline=`<rect x="${cx-w/2}" y="${top}" width="${w}" height="${h}" fill="none" stroke="#0004"/>`;
+  return `<path d="M${cx-24} ${base-20}h48l-6 12h-36z" fill="#555"/>${body}${o.shape==="cone"?"":outline}<line x1="${cx}" y1="${top}" x2="${cx}" y2="${top-12}" stroke="#333" stroke-width="2"/>${topmark(tm,cx,top-26)}`;
+}
+/* navio esquemático de perfil: proa à direita */
+function ship(o){
+  // o: len 'L'|'S', mast stack [{c,label}], masts, day shapes [], extra lights
+  const W=330,H=170;let s="";
+  s+=`<path d="M40 128 H262 L292 110 H52 Z" fill="#33414f"/>`; // casco
+  s+=`<rect x="120" y="96" width="70" height="14" fill="#4a5a6a"/>`;
+  const mf=200, ma=o.two?110:null;
+  s+=`<line x1="${mf}" y1="110" x2="${mf}" y2="30" stroke="#8a97a3" stroke-width="3"/>`;
+  if(ma)s+=`<line x1="${ma}" y1="110" x2="${ma}" y2="18" stroke="#8a97a3" stroke-width="3"/>`;
+  const dot=(x,y,c,lab,side)=>`<circle cx="${x}" cy="${y}" r="6.5" fill="${c}" stroke="#000" stroke-width="1"/>${lab?txt(side==="l"?x-10:x+10,y+4,lab,{a:side==="l"?"end":"start",fs:10,c:"#e8eef3"}):""}`;
+  (o.stack||[]).forEach((l,i)=>s+=dot(mf,36+i*15,l.c,l.t,"r"));
+  if(o.tope)s+=dot(o.stack&&o.stack.length?mf-14:mf,o.stack&&o.stack.length?40:34,C.w,o.tope,"l");
+  if(ma&&o.topeAlto)s+=dot(ma,24,C.w,o.topeAlto,"l");
+  if(o.costados)s+=dot(272,104,C.r,o.costados,"r");
+  if(o.alcance)s+=dot(46,112,C.w,o.alcance,"l");
+  if(o.remolque)s+=dot(46,97,C.y,o.remolque,"l");
+  if(o.fondeo)s+=dot(282,88,C.w,o.fondeo,"r");
+  if(o.fondeoPopa)s+=dot(46,104,C.w,o.fondeoPopa,"l");
+  return svgWrap(W+110,H,`<g transform="translate(60,0)">${s}</g>`,"#0d1b2a");
+}
+function dayShapes(list){
+  // list de formas na vertical: 'b' bola,'d' bicono,'c' cono arriba,'v' cono abajo,'cyl' cilindro,'hg' dois cones vértices unidos
+  let s="",y=18;const x=40;
+  list.forEach(f=>{
+    if(f==="b"){s+=`<circle cx="${x}" cy="${y+9}" r="9" fill="${C.k}"/>`;y+=22}
+    else if(f==="d"){s+=`<polygon points="${x},${y} ${x+10},${y+12} ${x},${y+24} ${x-10},${y+12}" fill="${C.k}"/>`;y+=28}
+    else if(f==="c"){s+=`<polygon points="${x},${y} ${x+10},${y+16} ${x-10},${y+16}" fill="${C.k}"/>`;y+=20}
+    else if(f==="v"){s+=`<polygon points="${x},${y+16} ${x+10},${y} ${x-10},${y}" fill="${C.k}"/>`;y+=20}
+    else if(f==="cyl"){s+=`<rect x="${x-8}" y="${y}" width="16" height="22" fill="${C.k}"/>`;y+=26}
+    else if(f==="hg"){s+=`<polygon points="${x},${y+14} ${x+10},${y} ${x-10},${y}" fill="${C.k}"/><polygon points="${x},${y+14} ${x+10},${y+28} ${x-10},${y+28}" fill="${C.k}"/>`;y+=32}
+    else if(f==="tri"){s+=`<circle cx="${x}" cy="${y+9}" r="8" fill="${C.k}"/><circle cx="${x-22}" cy="${y+30}" r="8" fill="${C.k}"/><circle cx="${x+22}" cy="${y+30}" r="8" fill="${C.k}"/>`;y+=44}
+  });
+  return `<svg viewBox="0 0 80 ${Math.max(y+8,60)}" class="fig day" role="img" xmlns="http://www.w3.org/2000/svg"><line x1="40" y1="4" x2="40" y2="${y+4}" stroke="#8a97a3" stroke-width="2"/>${s}</svg>`;
+}
+function arcs(){
+  const cx=160,cy=125,R=95;
+  const p=(deg,r)=>{const a=(deg-90)*Math.PI/180;return [cx+r*Math.cos(a),cy+r*Math.sin(a)]};
+  const sector=(a1,a2,r,col)=>{const [x1,y1]=p(a1,r),[x2,y2]=p(a2,r);const large=((a2-a1+360)%360)>180?1:0;return `<path d="M${cx} ${cy} L${x1} ${y1} A${r} ${r} 0 ${large} 1 ${x2} ${y2} Z" fill="${col}" fill-opacity=".55" stroke="${col}"/>`};
+  let s=sector(-112.5,112.5,R,"#dfe7ee")+sector(0,112.5,R*0.72,C.g)+sector(-112.5,0,R*0.72,C.r)+sector(112.5,247.5,R*0.72,"#fff");
+  s+=`<path d="M${cx} ${cy-34} L${cx+10} ${cy-14} L${cx+10} ${cy+24} L${cx-10} ${cy+24} L${cx-10} ${cy-14} Z" fill="#33414f" stroke="#fff"/>`;
+  s+=txt(cx,18,"225°",{fw:700,c:"#e8eef3"})+txt(cx+70,70,"112,5°",{c:"#e8eef3"})+txt(cx-70,70,"112,5°",{c:"#e8eef3"})+txt(cx,cy+68,"135°",{fw:700,c:"#13263a"});
+  return svgWrap(320,250,s,"#0d1b2a");
+}
+function boatParts(L){
+  const t=FT[L].parts;let s="";
+  s+=`<defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#888"/></marker></defs>`;
+  // perfil (proa à direita)
+  s+=`<path d="M40 60 H270 L300 60 L278 112 H70 Q48 102 40 60 Z" fill="#c9d6e2" stroke="#33414f"/>`;
+  s+=`<path d="M46 88 H290" stroke="${C.b}" stroke-width="2"/><path d="M52 88 L70 112 H278 L289 88Z" fill="#7d8b99" fill-opacity=".6"/>`;
+  s+=txt(165,54,t.om)+txt(170,106,t.ov,{c:"#13263a"})+txt(250,84,t.lf,{fs:9,c:C.b});
+  s+=txt(300,48,t.proa,{fw:700})+txt(44,48,t.popa,{fw:700});
+  s+=`<path d="M40 128 H300" stroke="#888" marker-start="url(#ar)" marker-end="url(#ar)"/>`+txt(170,142,t.eslora);
+  s+=`<path d="M312 60 V88" stroke="${C.r}" stroke-width="2"/>`+txt(318,78,t.fb,{a:"start",fs:9,c:C.r});
+  s+=`<path d="M312 88 V112" stroke="#13263a" stroke-width="2"/>`+txt(318,104,t.cal,{a:"start",fs:9});
+  // planta (proa para cima): estibordo à direita
+  const cx=200,top=168,bot=318;
+  s+=`<path d="M${cx} ${top} Q${cx+34} ${top+40} ${cx+30} ${bot-10} L${cx+24} ${bot} H${cx-24} L${cx-30} ${bot-10} Q${cx-34} ${top+40} ${cx} ${top} Z" fill="#c9d6e2" stroke="#33414f"/>`;
+  s+=`<path d="M${cx} ${top+4} V${bot}" stroke="#33414f" stroke-dasharray="3 3"/>`;
+  s+=txt(cx,top-6,t.proa,{fw:700,fs:10})+txt(cx,bot+14,t.popa,{fw:700,fs:10});
+  s+=txt(cx+46,top+32,t.amuraE,{a:"start",fs:10,c:C.g})+txt(cx-46,top+32,t.amuraB,{a:"end",fs:10,c:C.r});
+  s+=txt(cx+46,top+80,t.traves,{a:"start",fs:10})+txt(cx-46,top+80,t.traves,{a:"end",fs:10});
+  s+=txt(cx+46,bot-14,t.aleta,{a:"start",fs:10})+txt(cx-46,bot-14,t.aleta,{a:"end",fs:10});
+  s+=txt(cx+118,top+58,t.estr,{fw:700,fs:11,c:C.g})+txt(cx-118,top+58,t.bab,{fw:700,fs:11,c:C.r});
+  s+=txt(cx+6,top+120,t.cru,{a:"start",fs:9});
+  return `<svg viewBox="0 0 400 340" class="fig" role="img" xmlns="http://www.w3.org/2000/svg">${s}</svg>`;
+}
+function flagsDive(){return svgWrap(330,120,`<line x1="20" y1="10" x2="20" y2="112" stroke="#666" stroke-width="3"/><rect x="20" y="15" width="65" height="70" fill="#fff" stroke="#999"/><path d="M85 15 H150 L124 50 L150 85 H85 Z" fill="${C.b}"/>`+
+ `<line x1="190" y1="10" x2="190" y2="112" stroke="#666" stroke-width="3"/><rect x="190" y="15" width="115" height="70" fill="${C.r}"/><path d="M190 15 H203 L305 76 V85 H292 L190 24 Z" fill="#fff"/>`+txt(85,104,"«A» Alfa",{fs:11,fw:700})+txt(248,104,"boyarín / buzo",{fs:11,fw:700}))}
+function flagA(){return svgWrap(200,110,`<rect x="20" y="15" width="80" height="80" fill="#fff" stroke="#999"/><path d="M100 15 H180 L150 55 L180 95 H100 Z" fill="${C.b}"/><line x1="20" y1="10" x2="20" y2="105" stroke="#666" stroke-width="3"/>`)}
+function diverFlag(){return svgWrap(200,110,`<rect x="40" y="15" width="120" height="80" fill="${C.r}"/><path d="M40 15 L52 15 L160 87 L160 95 L148 95 L40 23 Z" fill="#fff"/><line x1="40" y1="10" x2="40" y2="105" stroke="#666" stroke-width="3"/>`)}
+
+/* textos (ES / GL / PT) */
+const FT={
+ es:{parts:{om:"obra muerta",ov:"obra viva",lf:"flotación",proa:"PROA",popa:"POPA",eslora:"eslora",fb:"francobordo",cal:"calado",cru:"línea de crujía",amuraE:"amura Er",amuraB:"amura Br",estr:"ESTRIBOR (verde)",bab:"BABOR (rojo)",aleta:"aleta",traves:"través"},night:"De noche",day:"De día"},
+ gl:{parts:{om:"obra morta",ov:"obra viva",lf:"flotación",proa:"PROA",popa:"POPA",eslora:"eslora",fb:"francobordo",cal:"calado",cru:"liña de cruxía",amuraE:"amura Er",amuraB:"amura Br",estr:"ESTRIBOR (verde)",bab:"BABOR (vermello)",aleta:"aleta",traves:"través"},night:"De noite",day:"De día"},
+ pt:{parts:{om:"obras mortas",ov:"obras vivas",lf:"flutuação",proa:"PROA",popa:"POPA",eslora:"comprimento",fb:"bordo livre",cal:"calado",cru:"linha de mediania (crujía)",amuraE:"amura EB",amuraB:"amura BB",estr:"ESTIBORDO (verde)",bab:"BOMBORDO (vermelho)",aleta:"alheta",traves:"través"},night:"De noite",day:"De dia"}
+};
+const lab=(es,gl,pt)=>({es,gl,pt});
+const FICHAS=[
+ {id:"partes",t:"Nomenclatura náutica",k:["proa","popa","babor","estribor","eslora","manga","calado","francobordo","obra viva","obra muerta","amura","aleta","traves","crujia","flotacion","puntal"],
+  title:lab("Partes del barco","Partes do barco","Partes do barco"),
+  fig:L=>boatParts(L),
+  notes:{es:["Mirando a proa: estribor a la derecha (verde), babor a la izquierda (rojo).","Eslora = largo; manga = ancho máximo; puntal = altura del casco; calado = parte sumergida (de la quilla a la flotación).","Francobordo = de la flotación a la cubierta. Obra viva = sumergida; obra muerta = fuera del agua.","Amura (proa-través), través (90°), aleta (través-popa)."],
+   gl:["Mirando a proa: estribor á dereita (verde), babor á esquerda (vermello).","Eslora = longo; manga = ancho máximo; puntal = altura do casco; calado = parte mergullada (da quilla á flotación).","Francobordo = da flotación á cuberta. Obra viva = mergullada; obra morta = fóra da auga.","Amura (proa-través), través (90°), aleta (través-popa)."],
+   pt:["Olhando para a proa: estibordo à direita (verde), bombordo à esquerda (vermelho).","Eslora = comprimento; manga = boca (largura máxima); puntal = pontal; calado = parte submersa (da quilha à linha de água).","Francobordo = bordo livre (da linha de água ao convés). Obra viva = submersa; obra muerta = fora de água.","Amura (proa-través), través (90°), aleta = alheta (través-popa)."]}},
+ {id:"laterales",t:"Balizamiento",k:["lateral","laterales","canal principal","region a","marca de babor","marca de estribor","cilindrica","conica","2+1","bifurcacion"],
+  title:lab("Marcas laterales (región A)","Marcas laterais (rexión A)","Marcas laterais (região A)"),
+  fig:L=>svgWrap(340,200,buoy(45,170,[C.r],"can")+buoy(125,170,[C.g],"cone",{shape:"cone"})+buoy(215,170,[C.r,C.g,C.r],"can")+buoy(295,170,[C.g,C.r,C.g],"cone",{shape:"cone"})+
+   txt(45,188,{es:"Babor",gl:"Babor",pt:"Bombordo"}[L],{fw:700})+txt(125,188,{es:"Estribor",gl:"Estribor",pt:"Estibordo"}[L],{fw:700})+txt(215,188,{es:"Canal ppal. a Er",gl:"Canle ppal. a Er",pt:"Canal princ. a EB"}[L],{fs:10,fw:700})+txt(295,188,{es:"Canal ppal. a Br",gl:"Canle ppal. a Br",pt:"Canal princ. a BB"}[L],{fs:10,fw:700})),
+  notes:{es:["Entrando en puerto (sentido convencional): ROJO a babor, VERDE a estribor. «Rojo al entrar, a babor».","Babor: roja, cilíndrica, tope cilindro rojo, luz roja. Estribor: verde, cónica, tope cono verde (vértice arriba), luz verde.","Canal principal: marca modificada con una banda ancha del otro color; luz Gp D(2+1). Ej.: verde con banda roja = canal principal a babor (dejarla por estribor).","En la región B (América, Japón...) los colores se invierten."],
+   gl:["Entrando en porto (sentido convencional): VERMELLO a babor, VERDE a estribor.","Babor: vermella, cilíndrica, tope cilindro vermello, luz vermella. Estribor: verde, cónica, tope cono verde (vértice arriba), luz verde.","Canle principal: marca modificada cunha banda ancha da outra cor; luz Gp D(2+1). Ex.: verde con banda vermella = canle principal a babor.","Na rexión B (América, Xapón...) as cores invértense."],
+   pt:["A entrar no porto (sentido convencional): VERMELHO a bombordo, VERDE a estibordo.","Bombordo: vermelha, cilíndrica, tope cilindro vermelho, luz vermelha. Estibordo: verde, cónica, tope cone verde (vértice para cima), luz verde.","Canal principal: marca modificada com uma faixa larga da outra cor; luz Gp D(2+1). Ex.: verde com faixa vermelha = canal principal a bombordo (deixá-la por estibordo).","Na região B (América, Japão...) as cores invertem-se."]}},
+ {id:"cardinales",t:"Balizamiento",k:["cardinal","cardinales","centelleante","ct","cuadrante"],
+  title:lab("Marcas cardinales","Marcas cardinais","Marcas cardeais"),
+  fig:L=>svgWrap(340,215,buoy(45,175,[C.k,C.y],"N")+buoy(125,175,[C.k,C.y,C.k],"E")+buoy(215,175,[C.y,C.k],"S")+buoy(295,175,[C.y,C.k,C.y],"W")+
+   txt(45,192,"N",{fw:700})+txt(125,192,"E",{fw:700})+txt(215,192,{es:"S",gl:"S",pt:"S"}[L],{fw:700})+txt(295,192,{es:"W (O)",gl:"W (O)",pt:"W (O)"}[L],{fw:700})+
+   txt(45,207,"Ct",{fs:9})+txt(125,207,"Gp Ct(3)",{fs:9})+txt(215,207,"Gp Ct(6)+DL",{fs:9})+txt(295,207,"Gp Ct(9)",{fs:9})),
+  notes:{es:["La marca está en el cuadrante que indica su nombre: pasar por ese lado. Cardinal N = aguas seguras al N del peligro.","Tope: dos conos negros. N: vértices arriba. S: vértices abajo. E: unidos por las bases (rombo). W: unidos por los vértices (reloj de arena).","Colores: el negro está hacia donde apuntan los conos. N negro arriba; S negro abajo; E negro arriba y abajo; W negro en el centro.","Luz blanca centelleante. Como un reloj: E = 3 destellos (3 h), S = 6 + destello largo (6 h), W = 9 (9 h), N = continua."],
+   gl:["A marca está no cuadrante que indica o seu nome: pasar por ese lado. Cardinal N = augas seguras ao N do perigo.","Tope: dous conos negros. N: vértices arriba. S: vértices abaixo. E: unidos polas bases (rombo). W: unidos polos vértices (reloxo de area).","Cores: o negro está cara a onde apuntan os conos. N negro arriba; S negro abaixo; E negro arriba e abaixo; W negro no centro.","Luz branca centelleante. Coma un reloxo: E = 3 (3 h), S = 6 + destello longo (6 h), W = 9 (9 h), N = continua."],
+   pt:["A marca está no quadrante que dá o nome: passar por esse lado. Cardeal N = águas seguras a norte do perigo.","Tope: dois cones pretos. N: vértices para cima. S: para baixo. E: unidos pelas bases (losango). W: unidos pelos vértices (ampulheta).","Cores: o preto fica para onde apontam os cones. N preto em cima; S preto em baixo; E preto em cima e em baixo; W preto ao centro.","Luz branca cintilante. Como um relógio: E = 3 (3 h), S = 6 + clarão longo (6 h), W = 9 (9 h), N = contínua."]}},
+ {id:"otras",t:"Balizamiento",k:["peligro aislado","aguas navegables","marca especial","especiales","especial","peligro nuevo","isofase","morse","esferas","amarilla"],
+  title:lab("Peligro aislado, aguas navegables, especiales y nuevos peligros","Perigo illado, augas navegables, especiais e novos perigos","Perigo isolado, águas navegáveis, especiais e novos perigos"),
+  fig:L=>svgWrap(340,215,buoy(45,175,[C.k,C.r,C.k],"2sph")+buoy(125,175,[C.r,C.w,C.r,C.w],"sph",{vert:1})+buoy(215,175,[C.y],"X")+buoy(295,175,[C.b,C.y,C.b,C.y],"+",{vert:1})+
+   txt(45,192,{es:"Peligro aislado",gl:"Perigo illado",pt:"Perigo isolado"}[L],{fs:9,fw:700})+txt(125,192,{es:"Aguas navegables",gl:"Augas navegables",pt:"Águas navegáveis"}[L],{fs:9,fw:700})+txt(215,192,{es:"Especial",gl:"Especial",pt:"Especial"}[L],{fs:10,fw:700})+txt(295,192,{es:"Peligro nuevo",gl:"Perigo novo",pt:"Perigo novo"}[L],{fs:10,fw:700})+
+   txt(45,207,"Gp D(2) B",{fs:9})+txt(125,207,"Iso/Oc/DL10s/Mo(A)",{fs:8})+txt(215,207,{es:"amarilla",gl:"amarela",pt:"amarela"}[L],{fs:9})+txt(295,207,{es:"azul/amarilla alt.",gl:"azul/amarela alt.",pt:"azul/amarela alt."}[L],{fs:9})),
+  notes:{es:["Peligro aislado: negra con bandas rojas horizontales, tope 2 esferas negras, luz blanca Gp D(2). Hay agua navegable alrededor.","Aguas navegables (centro de canal, recalada): franjas verticales rojas y blancas, tope 1 esfera roja, luz blanca isofase, ocultaciones, destello largo cada 10 s o Morse «A».","Especial: amarilla, tope aspa (X) amarilla, luz amarilla. Zonas especiales (baño, cables, fondeo...).","Peligro nuevo (aún no en cartas): franjas verticales azules y amarillas, tope cruz amarilla, luz alternativa azul y amarilla."],
+   gl:["Perigo illado: negra con bandas vermellas horizontais, tope 2 esferas negras, luz branca Gp D(2).","Augas navegables: franxas verticais vermellas e brancas, tope 1 esfera vermella, luz branca isofase, ocultacións, destello longo cada 10 s ou Morse «A».","Especial: amarela, tope aspa (X) amarela, luz amarela.","Perigo novo: franxas verticais azuis e amarelas, tope cruz amarela, luz alternativa azul e amarela."],
+   pt:["Perigo isolado: preta com faixas vermelhas horizontais, tope 2 esferas pretas, luz branca Gp D(2). Há água navegável à volta.","Águas navegáveis (meio do canal, aterragem): riscas verticais vermelhas e brancas, tope 1 esfera vermelha, luz branca isofásica, ocultações, clarão longo de 10 em 10 s ou Morse «A».","Especial: amarela, tope em X amarelo, luz amarela (zonas de banhos, cabos, fundeadouros...).","Perigo novo (ainda não nas cartas): riscas verticais azuis e amarelas, tope cruz amarela, luz alternada azul e amarela."]}},
+ {id:"arcos",t:"RIPA",k:["luz de tope","luces de costado","luz de alcance","225","112,5","135","sector","arco","luz de remolque","todo horizonte"],
+  title:lab("Luces de navegación: sectores","Luces de navegación: sectores","Luzes de navegação: setores"),
+  fig:L=>arcs(),
+  notes:{es:["Tope: blanca, 225° hacia proa (hasta 22,5° a popa del través).","Costados: verde a estribor, roja a babor, 112,5° cada una.","Alcance: blanca a popa, 135°. Remolque: amarilla, 135°, encima de la de alcance.","Todo horizonte: 360°. 112,5 + 112,5 + 135 = 360."],
+   gl:["Tope: branca, 225° cara a proa.","Costados: verde a estribor, vermella a babor, 112,5° cada unha.","Alcance: branca a popa, 135°. Remolque: amarela, 135°, enriba da de alcance.","Todo horizonte: 360°."],
+   pt:["Tope (mastro): branca, 225° para vante (até 22,5° para ré do través).","Costados (bordos): verde a estibordo, vermelha a bombordo, 112,5° cada.","Alcance (popa): branca, 135°. Reboque: amarela, 135°, por cima da de alcance.","Todo o horizonte: 360°. 112,5 + 112,5 + 135 = 360."]}},
+ {id:"motor",t:"RIPA",k:["propulsion mecanica","buque de motor","dos luces de tope","50 m","eslora igual o superior a 50","menor de 12","menor de 7","7 nudos"],
+  title:lab("Buque de propulsión mecánica","Buque de propulsión mecánica","Navio de propulsão mecânica"),
+  fig:L=>ship({two:1,tope:{es:"tope",gl:"tope",pt:"mastro"}[L],topeAlto:{es:"2º tope (≥50 m)",gl:"2º tope (≥50 m)",pt:"2º mastro (≥50 m)"}[L],costados:{es:"costados",gl:"costados",pt:"bordos"}[L],alcance:{es:"alcance",gl:"alcance",pt:"popa"}[L]}),
+  notes:{es:["En navegación: tope + costados + alcance. Con eslora ≥ 50 m: segunda luz de tope a popa, más alta.","< 12 m: puede llevar una blanca todo horizonte + costados en vez de tope y alcance.","< 7 m y ≤ 7 nudos: basta una blanca todo horizonte (y costados si es posible).","Navegando a vela y motor a la vez = buque de motor. De día: cono vértice abajo."],
+   gl:["En navegación: tope + costados + alcance. Con eslora ≥ 50 m: segunda luz de tope a popa, máis alta.","< 12 m: pode levar unha branca todo horizonte + costados.","< 7 m e ≤ 7 nós: abonda unha branca todo horizonte.","Vela e motor á vez = buque de motor. De día: cono vértice abaixo."],
+   pt:["A navegar: mastro + bordos + popa. Com 50 m ou mais: segunda luz de mastro a ré, mais alta.","< 12 m: pode levar uma branca todo o horizonte + bordos em vez de mastro e popa.","< 7 m e ≤ 7 nós: basta uma branca todo o horizonte (e bordos se possível).","À vela e a motor ao mesmo tempo = navio a motor. De dia: cone com o vértice para baixo."]}},
+ {id:"vela",t:"RIPA",k:["velero","vela","buque de vela","roja sobre verde","tricolor"],
+  title:lab("Buque de vela","Buque de vela","Veleiro"),
+  fig:L=>ship({stack:[{c:C.r,t:{es:"roja (opcional)",gl:"vermella (opc.)",pt:"vermelha (opc.)"}[L]},{c:C.g,t:{es:"verde (opcional)",gl:"verde (opc.)",pt:"verde (opc.)"}[L]}],costados:{es:"costados",gl:"costados",pt:"bordos"}[L],alcance:{es:"alcance",gl:"alcance",pt:"popa"}[L]}),
+  notes:{es:["Costados + alcance. NUNCA luz de tope (si la lleva, es buque de motor).","Opcional: roja sobre verde todo horizonte en el tope del palo. «Rojo sobre verde, vela».","< 20 m: puede llevar costados y alcance juntos en un farol tricolor en el tope (no junto con la roja/verde opcional).","De día, navegando a vela y motor: cono con el vértice hacia abajo."],
+   gl:["Costados + alcance. NUNCA luz de tope.","Opcional: vermella sobre verde todo horizonte no tope do pau.","< 20 m: farol tricolor no tope.","De día, a vela e motor: cono co vértice cara abaixo."],
+   pt:["Bordos + popa. NUNCA luz de mastro (se a levar, é navio a motor).","Opcional: vermelha sobre verde todo o horizonte no topo do mastro. «Vermelho sobre verde, vela».","< 20 m: pode juntar bordos e popa num farol tricolor no topo.","De dia, à vela e a motor: cone com o vértice para baixo."]}},
+ {id:"singob",t:"RIPA",k:["sin gobierno","dos rojas","dos bolas","dos esferas negras"],
+  title:lab("Buque sin gobierno","Buque sen goberno","Navio desgovernado"),
+  fig:L=>`<div class="figrow">${ship({stack:[{c:C.r,t:""},{c:C.r,t:{es:"2 rojas TH",gl:"2 vermellas TH",pt:"2 vermelhas TH"}[L]}],costados:{es:"costados (si hay arrancada)",gl:"costados (con arrancada)",pt:"bordos (com seguimento)"}[L],alcance:{es:"alcance",gl:"alcance",pt:"popa"}[L]})}${dayShapes(["b","b"])}</div>`,
+  notes:{es:["Noche: 2 rojas todo horizonte en vertical. Con arrancada, además costados y alcance (sin luces de tope).","Día: 2 bolas negras en vertical.","«Rojo sobre rojo, capitán muerto»."],
+   gl:["Noite: 2 vermellas todo horizonte en vertical. Con arrancada, ademais costados e alcance.","Día: 2 bólas negras en vertical."],
+   pt:["Noite: 2 vermelhas todo o horizonte na vertical. Com seguimento, também bordos e popa (sem luzes de mastro).","Dia: 2 bolas pretas na vertical.","Mnemónica espanhola: «rojo sobre rojo, capitán muerto»."]}},
+ {id:"restringida",t:"RIPA",k:["maniobra restringida","capacidad de maniobra restringida","roja blanca roja","bola bicono bola","dragado","cablero","buceo"],
+  title:lab("Capacidad de maniobra restringida","Capacidade de manobra restrinxida","Capacidade de manobra restrita"),
+  fig:L=>`<div class="figrow">${ship({stack:[{c:C.r,t:""},{c:C.w,t:{es:"R-B-R",gl:"V-B-V",pt:"V-B-V"}[L]},{c:C.r,t:""}],tope:{es:"tope (con arrancada)",gl:"tope",pt:"mastro"}[L],costados:"",alcance:""})}${dayShapes(["b","d","b"])}</div>`,
+  notes:{es:["Noche: roja–blanca–roja todo horizonte en vertical; con arrancada además tope, costados y alcance.","Día: bola–bicono–bola negros.","Ej.: dragas, cableros, buceo, reaprovisionamiento, remolque que restringe mucho. Si hay obstrucción: 2 rojas del lado peligroso y 2 verdes del lado por donde se puede pasar (de día: 2 bolas / 2 biconos)."],
+   gl:["Noite: vermella–branca–vermella todo horizonte en vertical; con arrancada ademais tope, costados e alcance.","Día: bóla–bicono–bóla negros.","Ex.: dragas, cableiros, mergullo. Obstrución: 2 vermellas lado perigoso, 2 verdes lado libre."],
+   pt:["Noite: vermelha–branca–vermelha todo o horizonte na vertical; com seguimento também mastro, bordos e popa.","Dia: bola–bicone–bola pretos.","Ex.: dragas, cableiros, mergulho. Com obstrução: 2 vermelhas do lado perigoso e 2 verdes do lado por onde se pode passar (de dia 2 bolas / 2 bicones)."]}},
+ {id:"calado",t:"RIPA",k:["restringido por su calado","calado","tres rojas","cilindro"],
+  title:lab("Buque restringido por su calado","Buque restrinxido polo seu calado","Navio condicionado pelo calado"),
+  fig:L=>`<div class="figrow">${ship({stack:[{c:C.r,t:""},{c:C.r,t:{es:"3 rojas TH",gl:"3 vermellas TH",pt:"3 vermelhas TH"}[L]},{c:C.r,t:""}],tope:{es:"tope",gl:"tope",pt:"mastro"}[L],costados:{es:"costados",gl:"costados",pt:"bordos"}[L],alcance:{es:"alcance",gl:"alcance",pt:"popa"}[L]})}${dayShapes(["cyl"])}</div>`,
+  notes:{es:["Noche: sus luces de buque de motor + 3 rojas todo horizonte en vertical.","Día: un cilindro negro."],gl:["Noite: luces de buque de motor + 3 vermellas todo horizonte en vertical.","Día: un cilindro negro."],pt:["Noite: luzes de navio a motor + 3 vermelhas todo o horizonte na vertical.","Dia: um cilindro preto."]}},
+ {id:"pesca",t:"RIPA",k:["pesca","pesquero","arrastre","arrastrero","verde sobre blanca","roja sobre blanca","dos conos"],
+  title:lab("Buques de pesca","Buques de pesca","Navios de pesca"),
+  fig:L=>`<div class="figrow">${ship({stack:[{c:C.g,t:{es:"arrastre: verde",gl:"arrastre: verde",pt:"arrasto: verde"}[L]},{c:C.w,t:{es:"blanca",gl:"branca",pt:"branca"}[L]}],costados:{es:"costados (con arrancada)",gl:"costados",pt:"bordos (seguimento)"}[L],alcance:{es:"alcance",gl:"alcance",pt:"popa"}[L]})}${dayShapes(["hg"])}</div>`,
+  notes:{es:["Arrastre: verde sobre blanca todo horizonte. «Verde sobre blanco, arrastrando».","Otra pesca (cerco, palangre...): roja sobre blanca. «Rojo sobre blanco, pescando». Aparejo > 150 m: blanca todo horizonte hacia el aparejo.","Con arrancada: además costados y alcance. Día: dos conos negros unidos por los vértices.","Pescar al curricán NO es «buque dedicado a la pesca» (no restringe la maniobra)."],
+   gl:["Arrastre: verde sobre branca todo horizonte.","Outra pesca: vermella sobre branca. Aparello > 150 m: branca todo horizonte cara ao aparello.","Con arrancada: costados e alcance. Día: dous conos negros unidos polos vértices.","Pescar ao curricán non é «buque dedicado á pesca»."],
+   pt:["Arrasto: verde sobre branca todo o horizonte. «Verde sobre branco, arrastando».","Outra pesca (cerco, palangre...): vermelha sobre branca. Aparelho > 150 m: branca todo o horizonte na direção do aparelho.","Com seguimento: também bordos e popa. Dia: dois cones pretos unidos pelos vértices.","Pescar ao corrico NÃO é «buque dedicado a la pesca»."]}},
+ {id:"remolque",t:"RIPA",k:["remolque","remolcador","remolcado","200 m","amarilla","bicono"],
+  title:lab("Remolque","Remolque","Reboque"),
+  fig:L=>`<div class="figrow">${ship({two:0,stack:[{c:C.w,t:{es:"2 topes (3 si >200 m)",gl:"2 topes (3 se >200 m)",pt:"2 mastros (3 se >200 m)"}[L]},{c:C.w,t:""}],costados:{es:"costados",gl:"costados",pt:"bordos"}[L],alcance:{es:"alcance",gl:"alcance",pt:"popa"}[L],remolque:{es:"remolque (amarilla)",gl:"remolque (amarela)",pt:"reboque (amarela)"}[L]})}${dayShapes(["d"])}</div>`,
+  notes:{es:["Remolcador: 2 luces de tope en vertical (3 si el remolque mide más de 200 m) + costados + alcance + luz amarilla de remolque encima de la de alcance.","Remolcado: costados + alcance.","Día: bicono negro en ambos solo si el remolque > 200 m."],
+   gl:["Remolcador: 2 luces de tope en vertical (3 se > 200 m) + costados + alcance + amarela de remolque.","Remolcado: costados + alcance.","Día: bicono só se o remolque > 200 m."],
+   pt:["Rebocador: 2 luzes de mastro na vertical (3 se o reboque tiver mais de 200 m) + bordos + popa + luz amarela de reboque por cima da de popa.","Rebocado: bordos + popa.","Dia: bicone preto em ambos só se o reboque > 200 m."]}},
+ {id:"fondeado",t:"RIPA",k:["fondeado","fondeo","varado","embarrancado","bola negra","tres bolas"],
+  title:lab("Fondeado y varado","Fondeado e varado","Fundeado e encalhado"),
+  fig:L=>`<div class="figrow">${ship({fondeo:{es:"fondeo (proa)",gl:"fondeo (proa)",pt:"fundeado (proa)"}[L],fondeoPopa:{es:"2ª (≥50 m, más baja)",gl:"2ª (≥50 m)",pt:"2.ª (≥50 m, mais baixa)"}[L]})}${dayShapes(["b"])}${dayShapes(["b","b","b"])}</div>`,
+  notes:{es:["Fondeado: blanca todo horizonte a proa (≥ 50 m otra a popa, más baja). Día: una bola negra a proa.","Varado: luces de fondeo + 2 rojas todo horizonte en vertical. Día: 3 bolas negras en vertical.","< 7 m fuera de canales y fondeaderos: no obligado."],
+   gl:["Fondeado: branca todo horizonte a proa (≥ 50 m outra a popa). Día: unha bóla negra.","Varado: luces de fondeo + 2 vermellas en vertical. Día: 3 bólas negras."],
+   pt:["Fundeado: branca todo o horizonte a vante (≥ 50 m outra a ré, mais baixa). Dia: uma bola preta a vante.","Encalhado: luzes de fundeado + 2 vermelhas todo o horizonte na vertical. Dia: 3 bolas pretas na vertical.","< 7 m fora de canais e fundeadouros: não é obrigado."]}},
+ {id:"practico",t:"RIPA",k:["practico","practicaje","blanca sobre roja","dragaminas","tres luces verdes","1000 m"],
+  title:lab("Práctico y dragaminas","Práctico e dragaminas","Piloto e caça-minas"),
+  fig:L=>`<div class="figrow">${ship({stack:[{c:C.w,t:{es:"práctico: blanca",gl:"práctico: branca",pt:"piloto: branca"}[L]},{c:C.r,t:{es:"sobre roja",gl:"sobre vermella",pt:"sobre vermelha"}[L]}],costados:{es:"costados",gl:"costados",pt:"bordos"}[L],alcance:{es:"alcance",gl:"alcance",pt:"popa"}[L]})}${dayShapes(["tri"])}</div>`,
+  notes:{es:["Práctico en servicio: blanca sobre roja todo horizonte en el tope. «Blanco sobre rojo, práctico a bordo».","Dragaminas: 3 luces verdes todo horizonte (una en el tope y una en cada penol); de día 3 bolas negras en la misma posición. Mantenerse a más de 1000 m."],
+   gl:["Práctico: branca sobre vermella todo horizonte.","Dragaminas: 3 verdes todo horizonte; de día 3 bólas negras. Manterse a máis de 1000 m."],
+   pt:["Piloto em serviço: branca sobre vermelha todo o horizonte no topo.","Caça-minas (dragaminas): 3 verdes todo o horizonte (topo e cada lais); de dia 3 bolas pretas nas mesmas posições. Manter-se a mais de 1000 m."]}},
+ {id:"sonido",t:"RIPA",k:["pitada","pitadas","señal acustica","senal acustica","sonora","adelantar","recodo","duda"],
+  title:lab("Señales acústicas de maniobra","Sinais acústicos de manobra","Sinais sonoros de manobra"),
+  fig:L=>{const S=(y,seq,lb)=>{let x=20,s="";seq.split("").forEach(c=>{s+=c==="."?`<rect x="${x}" y="${y}" width="10" height="12" rx="3" fill="${C.o}"/>`:`<rect x="${x}" y="${y}" width="42" height="12" rx="3" fill="${C.o}"/>`;x+=c==="."?16:48});return s+txt(170,y+10,lb,{a:"start",fs:11})};
+   const T={es:["Caigo a estribor","Caigo a babor","Doy atrás","Adelanto por estribor (canal)","Adelanto por babor (canal)","Conforme (me dejo adelantar)","Duda (≥5 cortas)","Recodo"],gl:["Caio a estribor","Caio a babor","Dou atrás","Adianto por estribor","Adianto por babor","Conforme","Dúbida (≥5 curtas)","Recodo"],pt:["Guino a estibordo","Guino a bombordo","Dou atrás (máquina a ré)","Ultrapasso por EB (canal)","Ultrapasso por BB (canal)","De acordo","Dúvida (≥5 curtas)","Curva/recodo"]}[L];
+   return svgWrap(340,250,S(12,".",T[0])+S(40,"..",T[1])+S(68,"...",T[2])+S(96,"--.",T[3])+S(124,"--..",T[4])+S(152,"-.-.",T[5])+S(180,".....",T[6])+S(208,"-",T[7]))},
+  notes:{es:["Corta ≈ 1 s; larga 4–6 s.","1 corta = estribor, 2 = babor, 3 = atrás (1-2-3: E-B-atrás).","Adelantar en canal angosto: 2 largas + 1 corta (por estribor), 2 largas + 2 cortas (por babor). El adelantado responde larga-corta-larga-corta.","De noche se pueden completar con destellos de luz blanca."],
+   gl:["Curta ≈ 1 s; longa 4–6 s.","1 curta = estribor, 2 = babor, 3 = atrás.","Adiantar en canle estreita: 2 longas + 1 curta (por estribor), 2 longas + 2 curtas (por babor). Resposta: longa-curta-longa-curta.","De noite pódense completar con destellos brancos."],
+   pt:["Curta ≈ 1 s; longa 4–6 s.","1 curta = estibordo, 2 = bombordo, 3 = máquina a ré (1-2-3).","Ultrapassar em canal estreito: 2 longas + 1 curta (por EB), 2 longas + 2 curtas (por BB). O ultrapassado responde longa-curta-longa-curta.","De noite podem completar-se com clarões de luz branca."]}},
+ {id:"niebla",t:"RIPA",k:["niebla","visibilidad reducida","campana","gong","cada 2 minutos","una larga y dos cortas"],
+  title:lab("Señales en visibilidad reducida","Sinais con visibilidade reducida","Sinais com visibilidade reduzida"),
+  fig:L=>{const S=(y,seq,lb)=>{let x=20,s="";seq.split("").forEach(c=>{if(c==="b"){s+=`<path d="M${x} ${y+12} q6 -16 12 0 z" fill="${C.y}"/>`;x+=16}else{s+=c==="."?`<rect x="${x}" y="${y}" width="10" height="12" rx="3" fill="${C.o}"/>`:`<rect x="${x}" y="${y}" width="42" height="12" rx="3" fill="${C.o}"/>`;x+=c==="."?16:48}});return s+txt(170,y+10,lb,{a:"start",fs:11})};
+   const T={es:["Motor con arrancada","Motor parado, sin arrancada","Vela, pesca, sin gob., restringido, remolcador","Remolcado (tripulado)","Fondeado: campana 5 s/min","Varado: 3 + campana + 3"],gl:["Motor con arrancada","Motor parado","Vela, pesca, sen gob., restrinxido, remolcador","Remolcado","Fondeado: campá 5 s/min","Varado: 3 + campá + 3"],pt:["Motor com seguimento","Motor parado, sem seguimento","Vela, pesca, desgov., restrito, rebocador","Rebocado (tripulado)","Fundeado: sino 5 s/min","Encalhado: 3 + sino + 3"]}[L];
+   return svgWrap(340,200,S(14,"-",T[0])+S(44,"--",T[1])+S(74,"-..",T[2])+S(104,"-...",T[3])+S(134,"bbbbbbbb",T[4])+S(164,"bbb",T[5]))},
+  notes:{es:["Intervalos de 2 minutos como máximo (campana: cada minuto).","Con arrancada: 1 larga. Parado: 2 largas.","Larga + 2 cortas: vela, pesca, sin gobierno, maniobra restringida, calado, remolcador. Remolcado: larga + 3 cortas.","Fondeado: repique rápido de campana 5 s cada minuto (≥ 100 m, además gong a popa). Varado: 3 golpes + repique + 3 golpes."],
+   gl:["Intervalos de 2 minutos como máximo (campá: cada minuto).","Con arrancada: 1 longa. Parado: 2 longas.","Longa + 2 curtas: vela, pesca, sen goberno, manobra restrinxida, remolcador. Remolcado: longa + 3 curtas.","Fondeado: campá 5 s cada minuto. Varado: 3 golpes + repenique + 3 golpes."],
+   pt:["Intervalos de 2 minutos no máximo (sino: cada minuto).","Com seguimento: 1 longa. Parado: 2 longas.","Longa + 2 curtas: vela, pesca, desgovernado, manobra restrita, calado, rebocador. Rebocado: longa + 3 curtas.","Fundeado: sino tocado rapidamente 5 s cada minuto (≥ 100 m, também gongo a ré). Encalhado: 3 badaladas + sino + 3 badaladas."]}},
+ {id:"buceo",t:"Legislación",k:["alfa","bandera a","buceo","buzo","buzos","boyarin","bandera roja con una franja blanca"],
+  title:lab("Buceo: banderas","Mergullo: bandeiras","Mergulho: bandeiras"),
+  fig:L=>flagsDive(),
+  notes:{es:["Bandera «A» (Alfa), blanca y azul con cola: tengo buzos sumergidos, manténgase alejado y a poca velocidad. Las embarcaciones menores la muestran en material rígido.","Boyarín con bandera roja con franja blanca diagonal: buzo sumergido. En las preguntas de examen: 25 m de resguardo al boyarín y 50 m a la embarcación con bandera Alfa."],
+   gl:["Bandeira «A» (Alfa), branca e azul con cola: teño mergulladores, manteñase afastado.","Boiarín con bandeira vermella con franxa branca diagonal: mergullador. Exame: 25 m ao boiarín e 50 m á embarcación con Alfa."],
+   pt:["Bandeira «A» (Alfa), branca e azul com cauda: tenho mergulhadores, afaste-se e reduza velocidade. As embarcações pequenas mostram-na em material rígido.","Bóia com bandeira vermelha com risca branca diagonal: mergulhador. Nas perguntas de exame: 25 m de resguardo à bóia e 50 m à embarcação com bandeira Alfa."]}},
+ {id:"rumbos",t:"Teoría de navegación",k:["correccion total","desvio","declinacion","rumbo verdadero","rumbo de aguja","demora","marcacion","ct","dm"],
+  title:lab("Rumbos y corrección total","Rumbos e corrección total","Rumos e correção total"),
+  fig:L=>{const nv=150,cx=170,cy=110,R=80;const p=(d,r)=>{const a=(d-90)*Math.PI/180;return [cx+r*Math.cos(a),cy+r*Math.sin(a)]};
+   const ln=(d,c,lb)=>{const [x,y]=p(d,R);const [tx,ty]=p(d,R+14);return `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="${c}" stroke-width="2.5"/>`+txt(tx,ty+4,lb,{fs:10,c})};
+   return svgWrap(340,215,`<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="#9aa"/>`+ln(0,"#13263a","Nv")+ln(-16,C.b,"Nm")+ln(-34,C.r,"Na")+ln(60,C.g,"Rv")+
+    txt(170,205,{es:"Ct = dm + Δ   ·   Rv = Ra + Ct",gl:"Ct = dm + Δ   ·   Rv = Ra + Ct",pt:"Ct = dm + Δ   ·   Rv = Ra + Ct"}[L],{fs:13,fw:700}))},
+  notes:{es:["Corrección total Ct = declinación magnética (dm) + desvío (Δ). E/NE positivo (+), W/NW negativo (−).","Rv = Ra + Ct  ·  Ra = Rv − Ct  ·  Dv = Da + Ct.","Desvío: depende del rumbo del barco y de los hierros/aparatos de a bordo (tablilla de desvíos). Declinación: depende del lugar y del año (viene en la carta).","Dv = Rv + marcación (estribor +, babor −)."],
+   gl:["Ct = declinación magnética (dm) + desvío (Δ). E/NE (+), W/NW (−).","Rv = Ra + Ct  ·  Ra = Rv − Ct  ·  Dv = Da + Ct.","Desvío: depende do rumbo e dos ferros de a bordo. Declinación: depende do lugar e do ano.","Dv = Rv + marcación (estribor +, babor −)."],
+   pt:["Correção total Ct = declinação magnética (dm) + desvio (Δ). E/NE positivo (+), W/NW negativo (−).","Rv (rumo verdadeiro) = Ra (rumo da agulha) + Ct  ·  Ra = Rv − Ct  ·  Dv = Da + Ct.","Desvio: depende do rumo do barco e dos ferros/aparelhos a bordo (tabela de desvios). Declinação: depende do local e do ano (vem na carta).","Dv = Rv + marcação (estibordo +, bombordo −)."]}}
+];
+function fichaHTML(f){const u=T();return `<div class="card ficha"><div class="tema"><span>${esc(TN[lang][f.t])}</span><span>${u.ficha}</span></div><p class="q" style="font-size:18px">${esc(f.title[lang])}</p><div class="figwrap">${f.fig(lang)}</div><ul class="fnotes">${f.notes[lang].map(n=>`<li>${esc(n)}</li>`).join("")}</ul></div>`}
+function fichasFor(x){const h=nrm(x.es[0]+" "+x.es[1].join(" "));return FICHAS.filter(f=>f.t===x.t&&f.k.some(k=>new RegExp("(^|[^a-z])"+k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).test(h)))}
+function openFicha(id){const f=FICHAS.find(z=>z.id===id);const ov=document.createElement("div");ov.className="ovl";ov.innerHTML=`<div class="ovlin">${fichaHTML(f)}<button class="btn" id="ovclose">${T().close}</button></div>`;document.body.appendChild(ov);const c=()=>ov.remove();ov.querySelector("#ovclose").onclick=c;ov.onclick=e=>{if(e.target===ov)c()};}
+function fichasView(){view="fichas";barwrap.hidden=true;const u=T();cnt.textContent=FICHAS.length+" "+u.fichas;
+  main.innerHTML=`<div class="wrap" style="gap:12px">${FICHAS.map(fichaHTML).join("")}<button class="link" id="fquit">${u.menu}</button></div>`;$("fquit").onclick=home;window.scrollTo(0,0)}
+
 function examSet(){
   const n={"Nomenclatura náutica":4,"Amarre y fondeo":2,"Seguridad en la mar":4,"Legislación":2,"Balizamiento":5,"RIPA":10,"Maniobra":2,"Emergencias":3,"Meteorología":4,"Teoría de navegación":5,"Carta de navegación":4};
   let out=[];TEMAS.forEach(t=>out=out.concat(shuffle(Q.filter(x=>x.t===t)).slice(0,n[t])));return out;
@@ -208,6 +456,8 @@ function feedback(k){
   if(ok){$("o"+k).classList.add("ok");fb.innerHTML=`<div class="fb ok"><strong>${u.right}</strong><p>${esc(e)}</p></div>`;}
   else{$("o"+k).classList.add("bad");$("o"+x.a).classList.add("ok");
     fb.innerHTML=`<div class="fb bad"><strong>${u.bad}</strong><p>${u.correct} <b>${L[x.a]}. ${esc(o[x.a])}</b></p><p>${esc(e)}</p></div>`;}
+  const fl=fichasFor(x);if(fl.length)fb.insertAdjacentHTML("beforeend",`<div class="fbtns">${fl.map(f=>`<button class="fbtn" data-f="${f.id}">${u.seef} ${esc(f.title[lang])}</button>`).join("")}</div>`);
+  fb.querySelectorAll(".fbtn").forEach(b=>b.onclick=()=>openFicha(b.dataset.f));
   fb.insertAdjacentHTML("beforeend",`<button class="btn" id="next" style="margin-top:12px">${i<run.length-1?u.next:u.see}</button>`);
   const n=$("next");n.onclick=()=>{i++;i<run.length?show():result()};return n;
 }
