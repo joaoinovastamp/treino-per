@@ -83,6 +83,15 @@ h2{font-family:var(--display);font-weight:700;font-size:15px;text-transform:uppe
 .res p{margin:0;color:var(--muted)}
 .res .verdict{font-family:var(--display);font-weight:700;font-size:22px}
 .res .verdict.ok{color:var(--ok)} .res .verdict.bad{color:var(--bad)}
+.search{width:100%;font:inherit;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--fg)}
+.search:focus{outline:3px solid var(--accent);outline-offset:1px}
+.fchips{display:flex;flex-wrap:wrap;gap:6px}
+.fchip{font:inherit;font-size:14px;padding:6px 10px;border-radius:16px;border:1.5px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer}
+.fchip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.hit{display:flex;flex-direction:column;gap:6px}
+.hit .ans{background:var(--ok-bg);border-radius:6px;padding:8px 10px}
+.hit .ans b{color:var(--ok)}
+mark{background:#ffe27a;color:#13263a;border-radius:2px;padding:0 1px}
 .src{font-size:13px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){.bar i{transition:none}}
 </style>
@@ -105,9 +114,9 @@ const TN={
  pt:{"Nomenclatura náutica":"Nomenclatura","Amarre y fondeo":"Amarração e fundeio","Seguridad en la mar":"Segurança no mar","Legislación":"Legislação","Balizamiento":"Balizagem","RIPA":"RIPA (abalroamentos)","Maniobra":"Manobra","Emergencias":"Emergências","Meteorología":"Meteorologia","Teoría de navegación":"Teoria de navegação","Carta de navegación":"Carta de navegação"}};
 const KEYN={"RIPA":[5,10],"Balizamiento":[2,5],"Carta de navegación":[2,4]};
 const UI={
- es:{n:"preguntas",exam:"Examen simulado",examd:n=>`${n} preguntas al azar, con el mismo número por tema que el examen real. Al final te dice si aprobarías.`,all:"Todas, al azar",alld:n=>`Las ${n} preguntas mezcladas.`,wrong:"Repetir las falladas",wrongd:w=>w?`${w} preguntas por acertar.`:"Aún no hay preguntas falladas.",bytema:"Por tema",ok:(a,b)=>`${a}/${b} acertadas`,key:(m,n)=>`Eliminatorio en el examen: máx. ${m} fallos de ${n}`,seen:(s,n)=>`Has respondido ${s} de ${n}. El progreso se guarda en este móvil.`,reset:"Borrar el progreso",confirm:"Toca otra vez para confirmar",quit:"Salir al menú",right:"Correcto",bad:"Incorrecto",correct:"Respuesta correcta:",next:"Siguiente pregunta",see:"Ver resultado",result:"Resultado",pass:"Aprobarías",fail:"Suspenderías",ftot:(w,l)=>`${w} fallos en total (máx. ${l})`,ft:(w,t,m)=>`${w} fallos en ${t} (máx. ${m})`,pct:p=>`${p}% de aciertos. En el examen real se pueden fallar como máximo 13 de 45.`,rep:w=>`Repetir las falladas (${w})`,menu:"Volver al menú"},
- gl:{n:"preguntas",exam:"Exame simulado",examd:n=>`${n} preguntas ao chou, co mesmo número por tema que o exame real. Ao final dille se aprobarías.`,all:"Todas, ao chou",alld:n=>`As ${n} preguntas mesturadas.`,wrong:"Repetir as falladas",wrongd:w=>w?`${w} preguntas por acertar.`:"Aínda non hai preguntas falladas.",bytema:"Por tema",ok:(a,b)=>`${a}/${b} acertadas`,key:(m,n)=>`Eliminatorio no exame: máx. ${m} fallos de ${n}`,seen:(s,n)=>`Respondiches ${s} de ${n}. O progreso gárdase neste móbil.`,reset:"Borrar o progreso",confirm:"Toca outra vez para confirmar",quit:"Saír ao menú",right:"Correcto",bad:"Incorrecto",correct:"Resposta correcta:",next:"Seguinte pregunta",see:"Ver resultado",result:"Resultado",pass:"Aprobarías",fail:"Suspenderías",ftot:(w,l)=>`${w} fallos en total (máx. ${l})`,ft:(w,t,m)=>`${w} fallos en ${t} (máx. ${m})`,pct:p=>`${p}% de acertos. No exame real pódense fallar como máximo 13 de 45.`,rep:w=>`Repetir as falladas (${w})`,menu:"Volver ao menú"},
- pt:{n:"perguntas",exam:"Exame simulado",examd:n=>`${n} perguntas ao acaso, com o mesmo número por tema que o exame real. No fim diz se passava.`,all:"Todas, ao acaso",alld:n=>`As ${n} perguntas misturadas.`,wrong:"Repetir as que errei",wrongd:w=>w?`${w} perguntas por acertar.`:"Ainda não há perguntas erradas.",bytema:"Por tema",ok:(a,b)=>`${a}/${b} certas`,key:(m,n)=>`Eliminatório no exame: máx. ${m} erros em ${n}`,seen:(s,n)=>`Já respondeu a ${s} de ${n}. O progresso fica guardado neste telemóvel.`,reset:"Apagar o progresso",confirm:"Tocar outra vez para confirmar",quit:"Sair para o menu",right:"Certo",bad:"Errado",correct:"Resposta certa:",next:"Próxima pergunta",see:"Ver resultado",result:"Resultado",pass:"Passava",fail:"Chumbava",ftot:(w,l)=>`${w} erros no total (máx. ${l})`,ft:(w,t,m)=>`${w} erros em ${t} (máx. ${m})`,pct:p=>`${p}% certas. No exame real pode errar no máximo 13 em 45.`,rep:w=>`Repetir as que errei (${w})`,menu:"Voltar ao menu"}};
+ es:{cons:"Consulta",consd:"Busca por palabra clave o tema y ve la respuesta y la explicación.",ph:"Buscar: luz, cardinal, extintor, 12 millas…",tall:"Todos",res:"resultados",more:"Mostrar más",none:"Sin resultados. Prueba otra palabra.",ans:"Respuesta:",n:"preguntas",exam:"Examen simulado",examd:n=>`${n} preguntas al azar, con el mismo número por tema que el examen real. Al final te dice si aprobarías.`,all:"Todas, al azar",alld:n=>`Las ${n} preguntas mezcladas.`,wrong:"Repetir las falladas",wrongd:w=>w?`${w} preguntas por acertar.`:"Aún no hay preguntas falladas.",bytema:"Por tema",ok:(a,b)=>`${a}/${b} acertadas`,key:(m,n)=>`Eliminatorio en el examen: máx. ${m} fallos de ${n}`,seen:(s,n)=>`Has respondido ${s} de ${n}. El progreso se guarda en este móvil.`,reset:"Borrar el progreso",confirm:"Toca otra vez para confirmar",quit:"Salir al menú",right:"Correcto",bad:"Incorrecto",correct:"Respuesta correcta:",next:"Siguiente pregunta",see:"Ver resultado",result:"Resultado",pass:"Aprobarías",fail:"Suspenderías",ftot:(w,l)=>`${w} fallos en total (máx. ${l})`,ft:(w,t,m)=>`${w} fallos en ${t} (máx. ${m})`,pct:p=>`${p}% de aciertos. En el examen real se pueden fallar como máximo 13 de 45.`,rep:w=>`Repetir las falladas (${w})`,menu:"Volver al menú"},
+ gl:{cons:"Consulta",consd:"Busca por palabra clave ou tema e ve a resposta e a explicación.",ph:"Buscar: luz, cardinal, extintor, 12 millas…",tall:"Todos",res:"resultados",more:"Amosar máis",none:"Sen resultados. Proba outra palabra.",ans:"Resposta:",n:"preguntas",exam:"Exame simulado",examd:n=>`${n} preguntas ao chou, co mesmo número por tema que o exame real. Ao final dille se aprobarías.`,all:"Todas, ao chou",alld:n=>`As ${n} preguntas mesturadas.`,wrong:"Repetir as falladas",wrongd:w=>w?`${w} preguntas por acertar.`:"Aínda non hai preguntas falladas.",bytema:"Por tema",ok:(a,b)=>`${a}/${b} acertadas`,key:(m,n)=>`Eliminatorio no exame: máx. ${m} fallos de ${n}`,seen:(s,n)=>`Respondiches ${s} de ${n}. O progreso gárdase neste móbil.`,reset:"Borrar o progreso",confirm:"Toca outra vez para confirmar",quit:"Saír ao menú",right:"Correcto",bad:"Incorrecto",correct:"Resposta correcta:",next:"Seguinte pregunta",see:"Ver resultado",result:"Resultado",pass:"Aprobarías",fail:"Suspenderías",ftot:(w,l)=>`${w} fallos en total (máx. ${l})`,ft:(w,t,m)=>`${w} fallos en ${t} (máx. ${m})`,pct:p=>`${p}% de acertos. No exame real pódense fallar como máximo 13 de 45.`,rep:w=>`Repetir as falladas (${w})`,menu:"Volver ao menú"},
+ pt:{cons:"Consulta",consd:"Pesquise por palavra-chave ou tema e veja a resposta e a explicação.",ph:"Pesquisar: luz, cardinal, extintor, 12 milhas…",tall:"Todos",res:"resultados",more:"Mostrar mais",none:"Sem resultados. Experimente outra palavra.",ans:"Resposta:",n:"perguntas",exam:"Exame simulado",examd:n=>`${n} perguntas ao acaso, com o mesmo número por tema que o exame real. No fim diz se passava.`,all:"Todas, ao acaso",alld:n=>`As ${n} perguntas misturadas.`,wrong:"Repetir as que errei",wrongd:w=>w?`${w} perguntas por acertar.`:"Ainda não há perguntas erradas.",bytema:"Por tema",ok:(a,b)=>`${a}/${b} certas`,key:(m,n)=>`Eliminatório no exame: máx. ${m} erros em ${n}`,seen:(s,n)=>`Já respondeu a ${s} de ${n}. O progresso fica guardado neste telemóvel.`,reset:"Apagar o progresso",confirm:"Tocar outra vez para confirmar",quit:"Sair para o menu",right:"Certo",bad:"Errado",correct:"Resposta certa:",next:"Próxima pergunta",see:"Ver resultado",result:"Resultado",pass:"Passava",fail:"Chumbava",ftot:(w,l)=>`${w} erros no total (máx. ${l})`,ft:(w,t,m)=>`${w} erros em ${t} (máx. ${m})`,pct:p=>`${p}% certas. No exame real pode errar no máximo 13 em 45.`,rep:w=>`Repetir as que errei (${w})`,menu:"Voltar ao menu"}};
 const L=["A","B","C","D"];
 const $=id=>document.getElementById(id);
 const main=$("main"),cnt=$("count"),prog=$("prog"),barwrap=$("barwrap");
@@ -124,7 +133,7 @@ let run=[],i=0,score=0,done=false,mode="",view="home";
 function setLang(l){lang=l;try{localStorage.setItem("per-lang",l)}catch(e){}
   document.documentElement.lang=l;
   document.querySelectorAll("#langs button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===l));
-  if(view==="home")home();else if(view==="q"){const d=done;show();if(d)redo();}else result();}
+  if(view==="home")home();else if(view==="cons")consulta();else if(view==="q"){const d=done;show();if(d)redo();}else result();}
 document.querySelectorAll("#langs button").forEach(b=>b.onclick=()=>setLang(b.dataset.l));
 function home(){
   view="home";barwrap.hidden=true;const u=T();cnt.textContent=Q.length+" "+u.n;
@@ -133,6 +142,7 @@ function home(){
    <div class="modes">
     <button class="mode" id="m-exam"><b>${u.exam}</b><span>${u.examd(examSet().length)}</span></button>
     <button class="mode" id="m-all"><b>${u.all}</b><span>${u.alld(Q.length)}</span></button>
+    <button class="mode" id="m-cons"><b>${u.cons}</b><span>${u.consd}</span></button>
     <button class="mode" id="m-wrong" ${w?"":"disabled"}><b>${u.wrong}</b><span>${u.wrongd(w)}</span></button>
    </div>
    <h2>${u.bytema}</h2>
@@ -143,9 +153,38 @@ function home(){
   </div>`;
   $("m-exam").onclick=()=>start(examSet(),"exam");
   $("m-all").onclick=()=>start(shuffle(Q),"all");
+  $("m-cons").onclick=()=>consulta();
   if(w)$("m-wrong").onclick=()=>start(shuffle(wrongIds()),"wrong");
   main.querySelectorAll(".chip").forEach(b=>b.onclick=()=>start(shuffle(Q.filter(x=>x.t===TEMAS[+b.dataset.t])),"tema"));
   const r=$("reset");if(r)r.onclick=()=>{if(r.dataset.c){st={};save();home()}else{r.dataset.c=1;r.textContent=T().confirm}};
+}
+
+let cq="",ct="",climit=40;
+function nrm(s){return String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"")}
+function hl(s,terms){let h=esc(s);if(!terms.length)return h;
+  terms.forEach(w=>{const re=new RegExp("("+w.replace(/[.*+?^${}()|[\]\\]/g,"\\$&").split("").map(ch=>{const m={a:"[aáàâã]",e:"[eéêè]",i:"[iíì]",o:"[oóôõò]",u:"[uúü]",c:"[cç]",n:"[nñ]"};return m[ch]||ch}).join("")+")","gi");h=h.replace(re,"<mark>$1</mark>")});return h}
+function consulta(){
+  view="cons";barwrap.hidden=true;const u=T();
+  main.innerHTML=`<div class="wrap" style="gap:12px">
+   <input class="search" id="cq" type="search" placeholder="${esc(u.ph)}" value="${esc(cq)}" autocomplete="off">
+   <div class="fchips"><button class="fchip" data-t="" aria-pressed="${!ct}">${u.tall}</button>${TEMAS.map(t=>`<button class="fchip" data-t="${esc(t)}" aria-pressed="${ct===t}">${esc(TN[lang][t])}</button>`).join("")}</div>
+   <p class="note" id="ccount"></p><div id="clist" class="wrap" style="gap:10px"></div>
+   <button class="link" id="cquit">${u.menu}</button></div>`;
+  const inp=$("cq");inp.oninput=()=>{cq=inp.value;climit=40;renderCons()};
+  main.querySelectorAll(".fchip").forEach(b=>b.onclick=()=>{ct=b.dataset.t;climit=40;main.querySelectorAll(".fchip").forEach(x=>x.setAttribute("aria-pressed",x===b));renderCons()});
+  $("cquit").onclick=home;renderCons();
+}
+function renderCons(){
+  const u=T(),terms=nrm(cq).split(/\s+/).filter(w=>w.length>1);
+  const res=Q.filter(x=>{if(ct&&x.t!==ct)return false;if(!terms.length)return true;
+    const [q,o,e]=tx(x);const hay=nrm(q+" "+o.join(" ")+" "+e+" "+x.es[0]+" "+x.es[1].join(" "));return terms.every(w=>hay.includes(w))});
+  $("ccount").textContent=res.length+" "+u.res;
+  const list=$("clist");
+  if(!res.length){list.innerHTML=`<p class="note">${u.none}</p>`;return}
+  list.innerHTML=res.slice(0,climit).map(x=>{const [q,o,e]=tx(x);return `<div class="card hit"><div class="tema"><span>${esc(TN[lang][x.t])}</span><span>${esc(x.src||"")}</span></div>
+    <p class="q" style="font-size:17px">${hl(q,terms)}</p><div class="ans">${u.ans} <b>${hl(o[x.a],terms)}</b></div><p style="margin:0">${hl(e,terms)}</p></div>`}).join("")+
+    (res.length>climit?`<button class="btn sec" id="cmore">${u.more} (${res.length-climit})</button>`:"");
+  const m=$("cmore");if(m)m.onclick=()=>{climit+=40;renderCons()};
 }
 function examSet(){
   const n={"Nomenclatura náutica":4,"Amarre y fondeo":2,"Seguridad en la mar":4,"Legislación":2,"Balizamiento":5,"RIPA":10,"Maniobra":2,"Emergencias":3,"Meteorología":4,"Teoría de navegación":5,"Carta de navegación":4};
